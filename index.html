@@ -1,23 +1,98 @@
 ---
-layout: default
+layout: index
 ---
 
-<div class="home">
+<div id="world"></div>
+<div id="usa"></div>
 
-  <h1 class="page-heading">Posts</h1>
+<!-- https://github.com/markmarkoh/datamaps -->
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="http://datamaps.github.io/scripts/datamaps.all.min.js?v=1"></script>
+<script>
+  // Color scheme generated at https://coolors.co/app/d7e8ed-8bbeed-5091ba-527d9e-c1c1c1
+  var fills = {
+    JAX: '#8BBEED',
+    ROB: '#5091BA',
+    BOTH: '#527D9E',
+    NOT_TOGETHER: '#D7E8ED',
+    DETAIL: '#123456',
+    defaultFill: '#FFFFFF'
+  };
 
-  <ul class="post-list">
-    {% for post in site.posts %}
-    <li>
-      <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+  var geographyConfig = {
+    borderWidth: '1px',
+    borderColor: '#C1C1C1',
+    popupOnHover: false,
+    highlightOnHover: false,
+    hideAntarctica: false,
+  };
 
-      <h2>
-        <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-      </h2>
-    </li>
-    {% endfor %}
-  </ul>
+  //basic map config with custom fills, mercator projection
+  var world = new Datamap({
+    scope: 'world',
+    element: document.getElementById('world'),
+    projection: 'mercator',
+    responsive: true,
+    fills: fills,
+    data: {
+      USA: {fillKey: 'DETAIL' },
+      CAN: {fillKey: 'BOTH' },
+      TZA: {fillKey: 'BOTH' },
+      KHM: {fillKey: 'BOTH' },
+      TZA: {fillKey: 'BOTH' },
+      THA: {fillKey: 'BOTH' },
+      FRA: {fillKey: 'NOT_TOGETHER' },
+      MEX: {fillKey: 'BOTH' },
+      NLD: {fillKey: 'JAX' },
+      PAN: {fillKey: 'JAX' },
+    },
+    geographyConfig: geographyConfig,
+  })
 
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+  var usa = new Datamap({
+    scope: 'usa',
+    element: document.getElementById('usa'),
+    projection: 'mercator',
+    responsive: true,
+    fills: fills,
+    data: {
+      MA: {fillKey: 'BOTH' },
+      ME: {fillKey: 'BOTH' },
+      NH: {fillKey: 'BOTH' },
+      NY: {fillKey: 'BOTH' },
+      IN: {fillKey: 'BOTH' },
+      IL: {fillKey: 'BOTH' },
+      MI: {fillKey: 'BOTH' },
+      OH: {fillKey: 'BOTH' },
+      WV: {fillKey: 'BOTH' },
+      SC: {fillKey: 'BOTH' },
+      CA: {fillKey: 'BOTH' },
+      WI: {fillKey: 'NOT_TOGETHER' },
+      NV: {fillKey: 'NOT_TOGETHER' },
+      AZ: {fillKey: 'NOT_TOGETHER' },
+      FL: {fillKey: 'NOT_TOGETHER' },
+      WA: {fillKey: 'JAX' },
+      LA: {fillKey: 'JAX' },
+      HI: {fillKey: 'JAX' },
+      TN: {fillKey: 'JAX' },
+      TX: {fillKey: 'ROB' },
+      GA: {fillKey: 'ROB' },
+      MO: {fillKey: 'ROB' },
+      OK: {fillKey: 'ROB' },
+      CO: {fillKey: 'ROB' },
+      VA: {fillKey: 'ROB' },
+      PA: {fillKey: 'ROB' },
+      NJ: {fillKey: 'ROB' },
+      MD: {fillKey: 'ROB' },
+      VT: {fillKey: 'ROB' },
+      RI: {fillKey: 'ROB' },
+    },
+    geographyConfig: geographyConfig
+  })
 
-</div>
+  window.addEventListener('resize', function() {
+    world.resize();
+    usa.resize();
+  });
+</script>
