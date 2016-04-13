@@ -3,24 +3,12 @@ layout: index
 ---
 
 <div id="world"></div>
-<!--div id="usa"></div -->
 
 <!-- https://github.com/markmarkoh/datamaps -->
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
 <script src="http://datamaps.github.io/scripts/datamaps.all.min.js?v=1"></script>
 <script>
-  // Callback to redirect out to the configured link
-  var redirectOnClick = function(datamap) {
-    datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
-      console.log(geography);
-      var data = datamap.options.data[geography.id];
-      if(data.linkUrl) {
-        window.location.href = data.linkUrl;
-      }
-    });
-  };
-
   // Color scheme generated at https://coolors.co/app/d7e8ed-8bbeed-5091ba-527d9e-c1c1c1
   var fills = {
     JAX: '#8BBEED',
@@ -78,9 +66,7 @@ layout: index
     projection: 'mercator',
     responsive: true,
     fills: fills,
-    //data: worldData,
     geographyConfig: geographyConfig,
-    done: redirectOnClick
   });
 
   world.bubbles(photoAlbums, {
@@ -100,8 +86,11 @@ layout: index
     highlightFillOpacity: 0.5,
   });
 
-  world.svg.selectAll('.bubbles').on('click', function(arg0, arg1, arg2, arg3) {
-    console.log('handle click event'); // TODO redirect to the linkUrl included as part of the bubble data
+  // Redirect to the configured link for that bubble
+  world.svg.selectAll('.datamaps-bubble').on('click', function(){
+    var data = JSON.parse(this.getAttribute("data-info"));  // Using basic javascript to prevent adding a
+                                                            // heavier weight library for convenience.
+    window.location.href = data.linkUrl;
   });
 
   window.addEventListener('resize', function() {
