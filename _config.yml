@@ -11,12 +11,17 @@ twitter_username: jekyllrb
 github_username:  jekyll
 
 # Build settings
-markdown: redcarpet
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  hard_wrap: false
 
 # Gems
 gems:
 - jekyll-sitemap
 - jekyll-redirect-from
+- jekyll-feed
 
 # Dev settings
 port: 4001
