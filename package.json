@@ -1,0 +1,24 @@
+{
+  "name": "robandjax",
+  "description": "Our website",
+  "main": "index.js",
+  "author": "Rob Mills (@robgmills)",
+  "license": "MIT",
+  "scripts": {
+    "start": "ws"
+  },
+  "devDependencies": {
+    "local-web-server": "^1.2.1"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.6"
+  },
+  "local-web-server": {
+    "port": 8100,
+    "forbid": "*.json"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "bugs": {}
+}
