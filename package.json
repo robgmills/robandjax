@@ -8,6 +8,7 @@
     "start": "ws"
   },
   "devDependencies": {
+    "eslint": "^2.8.0",
     "local-web-server": "^1.2.1"
   },
   "dependencies": {
