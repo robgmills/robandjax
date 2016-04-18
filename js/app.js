@@ -1,3 +1,7 @@
+'use strict';
+
+var photoMapApp = angular.module('photomap-app', []);
+
 // Color scheme generated at https://coolors.co/app/d7e8ed-8bbeed-5091ba-527d9e-c1c1c1
 var fills = {
     JAX: '#8BBEED',
