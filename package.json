@@ -15,8 +15,7 @@
     "bootstrap": "^3.3.6"
   },
   "local-web-server": {
-    "port": 8100,
-    "forbid": "*.json"
+    "port": 8100
   },
   "repository": {
     "type": "git"
