@@ -7,6 +7,13 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scop
     $http.get('/js/albums.json').success(function(data) {
         $scope.albums = data;
         $scope.world.bubbles($scope.albums, $scope.bubbleConfig);
+
+        // Redirect to the configured link for that bubble
+        $scope.world.svg.selectAll('.datamaps-bubble').on('click', function(){
+            var data = JSON.parse(this.getAttribute("data-info"));  // Using basic javascript to prevent adding a
+                                                                    // heavier weight library for convenience.
+            window.location.href = data.linkUrl;
+        });
     });
 
     // Color scheme generated at https://coolors.co/app/d7e8ed-8bbeed-5091ba-527d9e-c1c1c1
@@ -53,15 +60,8 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scop
         highlightBorderColor: '#D7E8ED',
         highlightBorderWidth: 2,
         highlightBorderOpacity: 0.5,
-        highlightFillOpacity: 0.5,
+        highlightFillOpacity: 0.5
     };
-
-    // Redirect to the configured link for that bubble
-    $scope.world.svg.selectAll('.datamaps-bubble').on('click', function(){
-        var data = JSON.parse(this.getAttribute("data-info"));  // Using basic javascript to prevent adding a
-                                                                // heavier weight library for convenience.
-        window.location.href = data.linkUrl;
-    });
 
     window.addEventListener('resize', function() {
         $scope.world.resize();
