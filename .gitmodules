@@ -1,3 +1,3 @@
 [submodule "components/datamaps"]
 	path = components/datamaps
-	url = git@github.com:robgmills/datamaps.git
+	url = https://github.com/robgmills/datamaps
