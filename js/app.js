@@ -44,7 +44,7 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scop
 
         var circles = svg.selectAll("circle");
         circles
-            .on('mouseover', function(data) {
+            .on('mouseover.zoom', function(data) {
                 var circle = d3.select(this);
                 circle
                     //.transition() // transitionining seems to cause flickering of the bubble as it grows
@@ -57,7 +57,7 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scop
                     })
                     .style('fill-opacity', 1);
             })
-            .on('mouseout', function(data) {
+            .on('mouseout.zoom', function(data) {
                 var circle = d3.select(this);
                 circle
                     //.transition() // transitionining seems to cause flickering of the bubble as it grows
@@ -103,7 +103,7 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scop
         borderOpacity: 0.5,
         borderColor: '#FFFFFF',
         fillOpacity: 0.75,
-        popupOnHover: false,
+        popupOnHover: true,
         animate: true,
         highlightOnHover: false,
     };
