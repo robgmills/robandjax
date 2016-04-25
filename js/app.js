@@ -19,11 +19,48 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scop
         var defs = svg.append("defs")
         for( var i=0; i<$scope.albums.length; i++ ) {
             var album = $scope.albums[i];
-            defs.append("pattern")
-                    .attr('id', album.id)
-                .append("pattern:image")
-                    .attr("xlink:href", album.imageUrl);
+            defs.append('pattern')
+                    .attr('id', 'album' + album.id)
+                    .attr('height', '100%')
+                    .attr('width', '100%')
+                    .attr('patternContentUnits', 'objectBoundingBox')
+                    .attr('viewBox', '0 0 1 1')
+                    .attr('preserveAspectRatio', 'xMidYMid slice')
+                .append('pattern:image')
+                    .attr('xmlns:xlink','http://www.w3.org/1999/xlink')
+                    .attr('xlink:href', album.imageUrl)
+                    .attr('preserveAspectRatio', 'xMidYMid slice')
+                    .attr('height', 1)
+                    .attr('width', 1);
         }
+
+
+        var circles = d3.selectAll("circle");
+
+        circles
+            .on('mouseover', function(data) {
+                var circle = d3.select(this);
+                circle
+                    //.transition() // transitionining seems to cause flickering of the bubble as it grows
+                    //.duration(400)
+                    .attr('r', function(datum) {
+                        return '25%'; // grow the circle by 25%
+                    })
+                    .style('fill', function(datum) {
+                        return 'url(#album' + datum.id + ')';
+                    });
+            })
+            .on('mouseout', function(data) {
+                var circle = d3.select(this);
+                circle
+                    //.transition() // transitionining seems to cause flickering of the bubble as it grows
+                    //.duration(400)
+                    .attr('r', function(datum) {
+                        return datum.radius;
+                    })
+                    .style('fill', '#527D9E');
+            });
+
     });
 
     // Color scheme generated at https://coolors.co/app/d7e8ed-8bbeed-5091ba-527d9e-c1c1c1
@@ -60,17 +97,10 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scop
         borderWidth: 1,
         borderOpacity: 0.5,
         borderColor: '#FFFFFF',
-        popupTemplate: function(geography, data) {
-            return '<div class="hoverinfo" style="max-width: 25%"><img src="' + data.imageUrl + '" alt="' + data.name + '" /></div>';
-        },
         fillOpacity: 0.75,
+        popupOnHover: false,
         animate: true,
-        highlightOnHover: true,
-        highlightFillColor: '#D7E8ED',
-        highlightBorderColor: '#D7E8ED',
-        highlightBorderWidth: 2,
-        highlightBorderOpacity: 0.5,
-        highlightFillOpacity: 0.5
+        highlightOnHover: false,
     };
 
     window.addEventListener('resize', function() {
