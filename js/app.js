@@ -4,19 +4,26 @@ var photoMapApp = angular.module('photomap-app', []);
 
 photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scope, $http) {
 
+    // Color scheme generated at https://coolors.co/app/d7e8ed-8bbeed-5091ba-527d9e-c1c1c1
+    $scope.fills = {
+        JAX: '#8BBEED',
+        ROB: '#5091BA',
+        BOTH: '#527D9E',
+        NOT_TOGETHER: '#D7E8ED',
+        DETAIL: '#123456',
+        defaultFill: '#FFFFFF'
+    };
+
     $http.get('/js/albums.json').success(function(data) {
 
         $scope.albums = data;
         $scope.world.bubbles($scope.albums, $scope.bubbleConfig);
 
-        var svg = $scope.world.svg
-        // Redirect to the configured link for that bubble
-        svg.selectAll('.datamaps-bubble').on('click', function(){
-            var data = JSON.parse(this.getAttribute("data-info"));
-            window.location.href = data.linkUrl;
-        });
+        var svg = $scope.world.svg,
+            defs = svg.append("defs");
 
-        var defs = svg.append("defs")
+        // Adds all the album cover images to the svg patterns to make
+        // them available as fills for the bubbles
         for( var i=0; i<$scope.albums.length; i++ ) {
             var album = $scope.albums[i];
             defs.append('pattern')
@@ -35,8 +42,7 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scop
         }
 
 
-        var circles = d3.selectAll("circle");
-
+        var circles = svg.selectAll("circle");
         circles
             .on('mouseover', function(data) {
                 var circle = d3.select(this);
@@ -58,20 +64,17 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scop
                     .attr('r', function(datum) {
                         return datum.radius;
                     })
-                    .style('fill', '#527D9E');
+                    .style('fill', function(datum) {
+                        return $scope.fills[datum.fillKey];
+                    });
+            })
+            .on('click', function(data){
+                console.dir('click');
+                console.dir(data);
+                window.location.href = data.linkUrl;
             });
 
     });
-
-    // Color scheme generated at https://coolors.co/app/d7e8ed-8bbeed-5091ba-527d9e-c1c1c1
-    $scope.fills = {
-        JAX: '#8BBEED',
-        ROB: '#5091BA',
-        BOTH: '#527D9E',
-        NOT_TOGETHER: '#D7E8ED',
-        DETAIL: '#123456',
-        defaultFill: '#FFFFFF'
-    };
 
     $scope.geographyConfig = {
         borderWidth: '1px',
