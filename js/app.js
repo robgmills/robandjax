@@ -1,5 +1,12 @@
 'use strict';
 
+// Utility method to move bubble to front of view (replicating updating the z-index of basic HTML)
+d3.selection.prototype.moveToFront = function() {
+    return this.each(function(){
+        this.parentNode.appendChild(this);
+    });
+};
+
 var photoMapApp = angular.module('photomap-app', []);
 
 photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scope, $http) {
@@ -56,6 +63,7 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scop
                         return 'url(#album' + datum.id + ')';
                     })
                     .style('fill-opacity', 1);
+                circle.moveToFront();
             })
             .on('mouseout.zoom', function(data) {
                 var circle = d3.select(this);
