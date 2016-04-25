@@ -79,8 +79,6 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scop
                     .style('fill-opacity', .75);
             })
             .on('click', function(data){
-                console.dir('click');
-                console.dir(data);
                 window.location.href = data.linkUrl;
             });
 
