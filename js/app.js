@@ -54,7 +54,8 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scop
                     })
                     .style('fill', function(datum) {
                         return 'url(#album' + datum.id + ')';
-                    });
+                    })
+                    .style('fill-opacity', 1);
             })
             .on('mouseout', function(data) {
                 var circle = d3.select(this);
@@ -66,7 +67,8 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scop
                     })
                     .style('fill', function(datum) {
                         return $scope.fills[datum.fillKey];
-                    });
+                    })
+                    .style('fill-opacity', .75);
             })
             .on('click', function(data){
                 console.dir('click');
