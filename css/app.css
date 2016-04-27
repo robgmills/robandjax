@@ -1,0 +1,19 @@
+.navbar .navbar-header>a.navbar-brand {
+    background-repeat: no-repeat;
+    background-position: 0 top;
+    background-size: contain;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .navbar .navbar-header>a.navbar-brand {
+        background-image: url('/img/randj-full.svg');
+    }
+}
+@media (max-width: 767px) {
+    .navbar .navbar-header>a.navbar-brand {
+        background-image: url('/img/randj-diag.svg');
+    }
+}

@@ -11,19 +11,42 @@
 
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/app.css">
     <link rel="canonical" href="//robandjax.com/">
     <link rel="alternate" type="application/rss+xml" title="Rob & Jax" href="//robandjax.com/feed.xml" />
   </head>
 
   <body ng-controller="photomap-controller">
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+      <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">
-            <img alt="Rob & Jax" src="">
-          </a>
+          <!--button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+            <i class="fa fa-bars"></i> --><!-- TODO: use something other than fontawesome --><!--
+          </button-->
+          <a class="navbar-brand page-scroll pull-left" href="#page-top"><span>rob + Jax</span></a>
         </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+          <ul class="nav navbar-nav">
+            <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+            <li class="hidden">
+              <a href="#page-top"></a>
+            </li>
+            <!--li>
+              <a class="page-scroll" href="#about">About</a>
+            </li>
+            <li>
+              <a class="page-scroll" href="#download">Download</a>
+            </li>
+            <li>
+              <a class="page-scroll" href="#contact">Contact</a>
+            </li-->
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
       </div>
+      <!-- /.container -->
     </nav>
 
     <div id="world"></div>
