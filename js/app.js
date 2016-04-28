@@ -116,5 +116,6 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scop
 
     window.addEventListener('resize', function() {
         $scope.world.resize();
+        $scope.world.bubbles($scope.albums, $scope.bubbleConfig);
     });
 }]);
