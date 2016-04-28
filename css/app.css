@@ -13,7 +13,13 @@
     }
 }
 @media (max-width: 767px) {
+    .navbar .navbar-header {
+        padding: 15px 2% 0 2%;
+    }
     .navbar .navbar-header>a.navbar-brand {
         background-image: url('/img/randj-diag.svg');
+        max-width: 50px;
+        border: 1px solid #000;
+        border-radius: 100%;
     }
 }
