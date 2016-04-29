@@ -12,7 +12,11 @@
     "local-web-server": "^1.2.1"
   },
   "dependencies": {
-    "bootstrap": "^3.3.6"
+    "topojson": "^1.6.24",
+    "datamaps": "^0.5.1",
+    "d3": "^3.5.16",
+    "bootstrap": "^3.3.6",
+    "angular": "^1.5.5"
   },
   "local-web-server": {
     "port": 8100
