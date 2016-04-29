@@ -9,7 +9,7 @@ d3.selection.prototype.moveToFront = function() {
 
 var photoMapApp = angular.module('photomap-app', []);
 
-photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scope, $http) {
+photoMapApp.controller('photomap-controller', ['$scope', '$http', '$window', function($scope, $http, $window) {
 
     // Color scheme generated at https://coolors.co/app/d7e8ed-8bbeed-5091ba-527d9e-c1c1c1
     $scope.fills = {
@@ -21,14 +21,9 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scop
         defaultFill: '#FFFFFF'
     };
 
-    $scope.zoomIn = function(data) {
-        var circle = d3.select(this);
+    $scope.zoomIn = function(circle, data) {
         circle
-            //.transition() // transitioning seems to cause flickering of the bubble as it grows
-            //.duration(400)
-            .attr('r', function(datum) {
-                return '25%'; // grow the circle by 25%
-            })
+            .attr('r', $scope.bubbleConfig.zoomRadius)
             .style('fill', function(datum) {
                 return 'url(#album' + datum.id + ')';
             })
@@ -36,11 +31,8 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scop
         circle.moveToFront();
     };
 
-    $scope.zoomOut = function(data) {
-        var circle = d3.select(this);
+    $scope.zoomOut = function(circle, data) {
         circle
-            //.transition() // transitioning seems to cause flickering of the bubble as it grows
-            //.duration(400)
             .attr('r', function(datum) {
                 return datum.radius;
             })
@@ -50,10 +42,6 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scop
             .style('fill-opacity', .75);
     };
 
-    $scope.onClick = function(data) {
-        $window.location.href = data.linkUrl;
-    }
-
     $scope.createPatterns = function(svg, patternData) {
         var defs = svg.append("defs");
 
@@ -62,18 +50,18 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scop
         for( var i=0; i<patternData.length; i++ ) {
             var album = patternData[i];
             defs.append('pattern')
-                .attr('id', 'album' + album.id)
-                .attr('height', '100%')
-                .attr('width', '100%')
-                .attr('patternContentUnits', 'objectBoundingBox')
-                .attr('viewBox', '0 0 1 1')
-                .attr('preserveAspectRatio', 'xMidYMid slice')
+                    .attr('id', 'album' + album.id)
+                    .attr('height', '100%')
+                    .attr('width', '100%')
+                    .attr('patternContentUnits', 'objectBoundingBox')
+                    .attr('viewBox', '0 0 1 1')
+                    .attr('preserveAspectRatio', 'xMidYMid slice')
                 .append('pattern:image')
-                .attr('xmlns:xlink','http://www.w3.org/1999/xlink')
-                .attr('xlink:href', album.imageUrl)
-                .attr('preserveAspectRatio', 'xMidYMid slice')
-                .attr('height', 1)
-                .attr('width', 1);
+                    .attr('xmlns:xlink','http://www.w3.org/1999/xlink')
+                    .attr('xlink:href', album.imageUrl)
+                    .attr('preserveAspectRatio', 'xMidYMid slice')
+                    .attr('height', 1)
+                    .attr('width', 1);
         }
     }
 
@@ -86,9 +74,25 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scop
 
         var circles = svg.selectAll("circle");
         circles
-            .on('mouseover.zoom', $scope.zoomIn)
-            .on('mouseout.zoom', $scope.zoomOut)
-            .on('click', $scope.onClick);
+            .on('touchstart', function(data) {
+                var circle = d3.select(this);
+                var radius = circle.attr('r');
+                if( radius !== $scope.bubbleConfig.zoomRadius ) {
+                    $scope.zoomIn(circle, data);
+                    d3.event.preventDefault();
+                }
+            })
+            .on('mouseover.zoom', function(data) {
+                var circle = d3.select(this);
+                $scope.zoomIn(circle, data);
+            })
+            .on('mouseout.zoom', function(data) {
+                var circle = d3.select(this);
+                $scope.zoomOut(circle, data);
+            })
+            .on('click', function(data) {
+                $window.location.href = data.linkUrl;
+            });
 
     });
 
@@ -97,7 +101,7 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scop
         borderColor: '#C1C1C1',
         popupOnHover: false,
         highlightOnHover: false,
-        hideAntarctica: true,
+        hideAntarctica: true
     };
 
     $scope.mapConfig = {
@@ -106,7 +110,7 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scop
         projection: 'mercator',
         responsive: true,
         fills: $scope.fills,
-        geographyConfig: $scope.geographyConfig,
+        geographyConfig: $scope.geographyConfig
     };
 
     //basic map config with custom fills, mercator projection
@@ -120,6 +124,7 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', function($scop
         popupOnHover: true,
         animate: true,
         highlightOnHover: false,
+        zoomRadius: '25%'
     };
 
     window.addEventListener('resize', function() {
