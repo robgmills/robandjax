@@ -21,6 +21,9 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', '$window', fun
         defaultFill: '#FFFFFF'
     };
 
+    // Stores the album data from the server
+    $scope.albums = undefined;
+
     $scope.zoomIn = function(circle, data) {
         circle
             .attr('r', $scope.bubbleConfig.zoomRadius)
@@ -42,13 +45,13 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', '$window', fun
             .style('fill-opacity', .75);
     };
 
-    $scope.createPatterns = function(svg, patternData) {
+    $scope.createPatterns = function(svg, patterns) {
         var defs = svg.append("defs");
 
         // Adds all the album cover images to the svg patterns to make
         // them available as fills for the bubbles
-        for( var i=0; i<patternData.length; i++ ) {
-            var album = patternData[i];
+        for( var i=0; i<patterns.length; i++ ) {
+            var album = patterns[i];
             defs.append('pattern')
                     .attr('id', 'album' + album.id)
                     .attr('height', '100%')
@@ -75,8 +78,9 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', '$window', fun
         var circles = svg.selectAll("circle");
         circles
             .on('touchstart', function(data) {
-                var circle = d3.select(this);
-                var radius = circle.attr('r');
+                var circle = d3.select(this),
+                    radius = circle.attr('r');
+
                 if( radius !== $scope.bubbleConfig.zoomRadius ) {
                     $scope.zoomIn(circle, data);
                 }
@@ -115,7 +119,12 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', '$window', fun
         projection: 'mercator',
         responsive: true,
         fills: $scope.fills,
-        geographyConfig: $scope.geographyConfig
+        geographyConfig: $scope.geographyConfig,
+        done: function(datamap) {
+            d3.select(window).on('resize', function() {
+                datamap.resize();
+            });
+        }
     };
 
     //basic map config with custom fills, mercator projection
@@ -131,9 +140,4 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', '$window', fun
         highlightOnHover: false,
         zoomRadius: '25%'
     };
-
-    window.addEventListener('resize', function() {
-        $scope.world.resize();
-        $scope.world.bubbles($scope.albums, $scope.bubbleConfig);
-    });
 }]);
