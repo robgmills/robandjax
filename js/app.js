@@ -100,6 +100,7 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', '$window', fun
                 }
 
                 d3.event.preventDefault();
+                d3.event.stopPropagation();
             })
             .on('mouseover.zoom', function(data) {
                 var circle = d3.select(this);
@@ -134,6 +135,10 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', '$window', fun
             d3.select(window).on('resize', function() {
                 datamap.resize();
             });
+
+            datamap.svg.on('touchstart', function() {
+                $scope.zoomOut($scope.openBubble);
+            })
         }
     };
 
