@@ -79,8 +79,13 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', '$window', fun
                 var radius = circle.attr('r');
                 if( radius !== $scope.bubbleConfig.zoomRadius ) {
                     $scope.zoomIn(circle, data);
-                    d3.event.preventDefault();
                 }
+
+                else {
+                    $window.location.href = data.linkUrl;
+                }
+
+                d3.event.preventDefault();
             })
             .on('mouseover.zoom', function(data) {
                 var circle = d3.select(this);
