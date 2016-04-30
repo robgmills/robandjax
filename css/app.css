@@ -1,3 +1,27 @@
+body {
+    width: 100%;
+    height: 100%;
+    font-family: Lora,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 35px;
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
 .navbar .navbar-header>a.navbar-brand {
     background-repeat: no-repeat;
     background-position: 0 top;
@@ -5,21 +29,21 @@
     text-indent: 100%;
     white-space: nowrap;
     overflow: hidden;
+    display: inline-block;
+    background-image: url('/img/randj-full.svg');
+    max-width: 50%;
 }
 
-@media (min-width: 768px) {
-    .navbar .navbar-header>a.navbar-brand {
-        background-image: url('/img/randj-full.svg');
-    }
-}
 @media (max-width: 767px) {
-    .navbar .navbar-header {
-        padding: 15px 2% 0 2%;
-    }
     .navbar .navbar-header>a.navbar-brand {
+        margin: 8px 0 0 15px;
         background-image: url('/img/randj-diag.svg');
         max-width: 50px;
         border: 1px solid #000;
         border-radius: 100%;
     }
+}
+
+.copyright {
+    color: #ddd;
 }
