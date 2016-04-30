@@ -13,11 +13,7 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', '$window', fun
 
     // Color scheme generated at https://coolors.co/app/d7e8ed-8bbeed-5091ba-527d9e-c1c1c1
     $scope.fills = {
-        JAX: '#8BBEED',
-        ROB: '#5091BA',
         BOTH: '#527D9E',
-        NOT_TOGETHER: '#D7E8ED',
-        DETAIL: '#123456',
         defaultFill: '#FFFFFF'
     };
 
