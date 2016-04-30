@@ -126,7 +126,7 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', '$window', fun
 
     $scope.mapConfig = {
         scope: 'world',
-        element: document.getElementById('world'),
+        element: document.getElementById('photomap'),
         projection: 'mercator',
         responsive: true,
         fills: $scope.fills,
