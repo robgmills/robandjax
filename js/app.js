@@ -20,7 +20,7 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', '$window', fun
     // Stores the currently zoomed in bubble for reference
     $scope.openBubble = undefined;
     // Stores the album data from the server
-    $scope.albums = undefined;
+    $scope.albums = [];
 
     $scope.zoomIn = function(circle) {
         if( circle ) {
@@ -75,7 +75,12 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', '$window', fun
     $http.get('/js/albums.json').success(function(data) {
         var svg = $scope.world.svg;
 
-        $scope.albums = data;
+
+        for( var i in data ) {
+            var album = data[i];
+            album.active ? $scope.albums.push(album) : undefined;
+        }
+
         $scope.world.bubbles($scope.albums, $scope.bubbleConfig);
         $scope.createPatterns(svg, $scope.albums);
 
