@@ -47,3 +47,12 @@ h6 {
 .copyright {
     color: #ddd;
 }
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary:active:focus {
+    background-color: #527D9E;
+    background-image: linear-gradient(to bottom,#527D9E 0,#527D9E 100%);
+}
