@@ -36,3 +36,12 @@ node_modules/bootstrap/dist/*
 node_modules/bootstrap/dist/css/*
 !node_modules/bootstrap/dist/css/bootstrap.min.css
 !node_modules/bootstrap/dist/css/bootstrap-theme.min.css
+
+!node_modules/angular-ui-bootstrap
+node_modules/angular-ui-bootstrap/*
+!node_modules/angular-ui-bootstrap/dist
+node_modules/angular-ui-bootstrap/dist/*
+!node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js
+!node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js
+!node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css
+

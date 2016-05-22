@@ -9,15 +9,16 @@
     <title>rob + Jax</title>
     <meta name="description" content="Our life, visually.">
 
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/app.css">
-    <link rel="canonical" href="//robandjax.com/">
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap-theme.min.css" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/css/app.css" />
+    <link rel="canonical" href="//robandjax.com/" />
     <link rel="alternate" type="application/rss+xml" title="Rob & Jax" href="//robandjax.com/feed.xml" />
     <link rel="icon" type="image/png" href="/img/randj-diag-border.png" />
   </head>
 
-  <body ng-controller="photomap-controller">
+  <body>
     <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -31,7 +32,7 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-          <ul class="nav navbar-nav">
+          <ul class="nav navbar-nav" ng-controller="modal-controller">
             <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
             <li class="hidden">
               <a href="#page-top"></a>
@@ -48,19 +49,7 @@
       <!-- /.container -->
     </nav>
 
-    <header class="intro" id="photomap"></header>
-
-    <section id="guide" class="container content-section text-center">
-      <div class="row">
-        <div class="col-lg-8 col-lg-offset-2">
-          <h2>Guide</h2>
-          <p>Each of the bubbles on the map represents a different adventure - from climbing Kilimanjaro on our
-            honeymoon to backpacking through Thailand and Cambodia.</p>
-          <p>Hover over or tap on any of the bubbles to see us there.  Click or tap again on the expanded bubble to
-            see all of the photos from that trip.</p>
-        </div>
-      </div>
-    </section>
+    <header class="intro" id="photomap" ng-controller="photomap-controller"></header>
 
     <footer class="text-right navbar-fixed-bottom copyright">
       <p>Copyright 2016 &copy;</p>
@@ -70,17 +59,33 @@
     <script src="/node_modules/d3/d3.min.js"></script>
     <script src="/node_modules/topojson/build/topojson.min.js"></script>
     <script src="/node_modules/datamaps/dist/datamaps.all.min.js"></script>
+    <script src="/node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+    <script src="/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
     <script src="/js/app.js"></script>
+
+    <script type="text/ng-template" id="guide-content.html">
+      <div class="modal-header">
+        <h3 class="modal-title">Guide</h3>
+      </div>
+      <div class="modal-body">
+        <p>Each of the bubbles on the map represents a different adventure - from climbing Kilimanjaro on our
+          honeymoon to backpacking through Thailand and Cambodia.</p>
+        <p>Hover over or tap on any of the bubbles to see us there.  Click or tap again on the expanded bubble to
+          see all of the photos from that trip.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="close()">Got It!</button>
+      </div>
+    </script>
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
       ga('create', 'UA-65880005-1', 'auto');
       ga('send', 'pageview');
     </script>
-
   </body>
 
 </html>

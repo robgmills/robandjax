@@ -7,7 +7,7 @@ d3.selection.prototype.moveToFront = function() {
     });
 };
 
-var photoMapApp = angular.module('photomap-app', []);
+var photoMapApp = angular.module('photomap-app', ['ui.bootstrap']);
 
 photoMapApp.controller('photomap-controller', ['$scope', '$http', '$window', function($scope, $http, $window) {
 
@@ -157,3 +157,30 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', '$window', fun
         zoomRadius: '25%'
     };
 }]);
+
+photoMapApp.controller('modal-controller', function ($scope, $uibModal, $document) {
+    $document.ready(function () {
+        $scope.open();
+    });
+
+    $scope.open = function () {
+
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'guide-content.html',
+            controller: 'guide-controller'
+        });
+
+        var setGuideCookie = function() {
+            // TODO: set cookie to prevent opening of the guide
+        }
+
+        modalInstance.result.then(setGuideCookie, setGuideCookie);
+    };
+});
+
+photoMapApp.controller('guide-controller', function ($scope, $uibModalInstance) {
+    $scope.close = function () {
+        $uibModalInstance.close();
+    };
+});
