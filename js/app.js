@@ -158,12 +158,14 @@ photoMapApp.controller('photomap-controller', ['$scope', '$http', '$window', fun
     };
 }]);
 
-photoMapApp.controller('modal-controller', function ($scope, $uibModal, $document) {
+photoMapApp.controller('nav-controller', function ($scope, $uibModal, $document) {
+    $scope.isCollapsed = true;
+
     $document.ready(function () {
-        $scope.open();
+        $scope.openGuide();
     });
 
-    $scope.open = function () {
+    $scope.openGuide = function () {
 
         var modalInstance = $uibModal.open({
             animation: true,
@@ -177,6 +179,10 @@ photoMapApp.controller('modal-controller', function ($scope, $uibModal, $documen
 
         modalInstance.result.then(setGuideCookie, setGuideCookie);
     };
+
+    $scope.toggleMenu = function() {
+        $scope.isCollapsed = !$scope.isCollapsed;
+    }
 });
 
 photoMapApp.controller('guide-controller', function ($scope, $uibModalInstance) {

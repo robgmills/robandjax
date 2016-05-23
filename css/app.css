@@ -22,26 +22,52 @@ h6 {
     letter-spacing: 1px;
 }
 
-.navbar .navbar-header>a.navbar-brand {
+.navbar .navbar-header > a {
+    margin: 8px 0 0 15px;
     background-repeat: no-repeat;
     background-position: 0 top;
     background-size: contain;
     text-indent: 100%;
     white-space: nowrap;
     overflow: hidden;
-    display: inline-block;
+
+}
+
+.navbar .navbar-header > a.navbar-brand {
+    margin-left: 0;
     background-image: url('/img/randj-full.svg');
     max-width: 50%;
+    display: inline-block;
+}
+
+.navbar .navbar-header > a.navbar-toggle {
+    background-image: url('/img/randj-diag.svg');
+    max-width: 40px;
+    border: 1px solid #000;
+    border-radius: 100%;
+    float: none;
 }
 
 @media (max-width: 767px) {
-    .navbar .navbar-header>a.navbar-brand {
-        margin: 8px 0 0 15px;
-        background-image: url('/img/randj-diag.svg');
-        max-width: 50px;
-        border: 1px solid #000;
-        border-radius: 100%;
+    .navbar .navbar-header > a.navbar-brand {
+        display: none;
     }
+    .navbar .navbar-header > a.navbar-toggle {
+        display: inline-block;
+    }
+}
+
+.navbar .navbar-nav li a {
+    color: #c1c1c1;
+}
+
+.navbar .navbar-nav li a:hover,
+.navbar .navbar-nav li a:focus{
+    color: #0f0f0f;
+}
+
+.navbar .navbar-nav li a span {
+    font-size: 2em;
 }
 
 .copyright {
